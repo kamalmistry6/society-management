@@ -1,0 +1,12 @@
+.add-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.no-bottom {
+  margin-bottom: -1.2rem;
+}

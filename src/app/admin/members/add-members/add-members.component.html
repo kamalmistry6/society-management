@@ -1,0 +1,83 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3>
+            Add Member
+        </h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+    <div class="dialog-body">
+        <form [formGroup]="memberForm" (ngSubmit)="onSubmit()" class="add-form">
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>name</mat-label>
+                <input matInput formControlName="name" placeholder="Enter name" />
+                <mat-error *ngIf="memberForm.get('name')?.hasError('required')">Please enter Block No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Phone No</mat-label>
+                <input matInput formControlName="phone" placeholder="Enter Phone No" />
+                <mat-error *ngIf="memberForm.get('phone')?.hasError('required')">Please enter Phone No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Enter Email" />
+                <mat-error *ngIf="memberForm.get('email')?.hasError('required')">Please enter Email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Occupation</mat-label>
+                <input matInput formControlName="occupation" placeholder="Enter Occupation" />
+                <mat-error *ngIf="memberForm.get('occupation')?.hasError('required')">Please enter
+                    Occupation</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Aadhaar No</mat-label>
+                <input matInput formControlName="aadhaar" placeholder="Enter Aadhaar No" />
+                <mat-error *ngIf="memberForm.get('aadhaar')?.hasError('required')">Please enter Aadhaar No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Emergency Phone No</mat-label>
+                <input matInput formControlName="emergency_contact_phone" placeholder="Enter Emergency Phone No" />
+                <mat-error *ngIf="memberForm.get('emergency_contact_phone')?.hasError('required')">Please enter
+                    Emergency Phone No
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Vehicle No</mat-label>
+                <input matInput formControlName="vehicle_number" placeholder="Enter Vehicle No" />
+                <mat-error *ngIf="memberForm.get('vehicle_number')?.hasError('required')">Please enter Vehicle
+                    No</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Move In Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="move_in_date" placeholder="YYYY-MM-DD" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="memberForm.get('move_in_date')?.hasError('required')">
+                    Please enter Move In Date
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Status</mat-label>
+                <input type="text" matInput [matAutocomplete]="formatAuto" formControlName="status"
+                    placeholder="Select the Status" />
+                <mat-autocomplete #formatAuto="matAutocomplete">
+                    <mat-option *ngFor="let statusType of statusTypeOptions" [value]="statusType">
+                        {{ statusType }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="memberForm.get('format')?.hasError('required')">Format is required</mat-error>
+            </mat-form-field>
+
+            <div>
+                <button class="mat-raised-button" type="submit">Add Member</button>
+            </div>
+        </form>
+    </div>
+</div>

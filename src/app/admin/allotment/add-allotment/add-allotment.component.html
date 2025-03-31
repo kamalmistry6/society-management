@@ -1,0 +1,70 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3>Flat Allotment</h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <form [formGroup]="allotmentForm" (ngSubmit)="onSubmit()" class="add-form">
+
+            <!-- Member Name -->
+            <mat-form-field appearance="outline" class="mat-form-field">
+                <mat-label>Member Name</mat-label>
+                <input type="text" matInput [matAutocomplete]="memberAuto" formControlName="member_id"
+                    placeholder="Select the Member Name" />
+                <mat-autocomplete #memberAuto="matAutocomplete">
+                    <mat-option *ngFor="let member of memberData" [value]="member.id">
+                        {{ member.name }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="allotmentForm.get('member_id')?.hasError('required')">
+                    Member Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Flat -->
+            <mat-form-field appearance="outline" class="mat-form-field">
+                <mat-label>Flat</mat-label>
+                <input type="text" matInput [matAutocomplete]="flatAuto" formControlName="flat_id"
+                    placeholder="Select the Flat" />
+                <mat-autocomplete #flatAuto="matAutocomplete">
+                    <mat-option *ngFor="let flat of flatdata" [value]="flat.id">
+                        {{ flat.flat_no }} - {{ flat.block_no }} ({{ flat.flat_type }})
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="allotmentForm.get('flat_id')?.hasError('required')">
+                    Flat is required
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Move In Date -->
+            <mat-form-field appearance="outline" class="mat-form-field">
+                <mat-label>Move In Date</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="start_date" placeholder="YYYY-MM-DD" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="allotmentForm.get('start_date')?.hasError('required')">
+                    Please enter Move In Date
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Move Out Date -->
+            <mat-form-field appearance="outline" class="mat-form-field">
+                <mat-label>Move Out Date</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="end_date" placeholder="YYYY-MM-DD" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="allotmentForm.get('end_date')?.hasError('required')">
+                    Please enter Move Out Date
+                </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button class="mat-raised-button" type="submit" [disabled]="allotmentForm.invalid">Add
+                    Allotment</button>
+            </div>
+        </form>
+    </div>
+</div>

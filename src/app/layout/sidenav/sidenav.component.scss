@@ -1,0 +1,151 @@
+.sidenav {
+  background: #242527;
+  transition: all 0.3s ease;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 5rem;
+  height: 100vh;
+
+  // @media screen and (max-width: 480px) {
+  //     display: none
+  // }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 0.9rem 0.9rem;
+    width: 100%;
+
+    .logo {
+      background: #fff;
+      text-align: center;
+      width: 3rem;
+      min-width: 3rem;
+      border-radius: 0.3rem;
+      padding: 0.3rem;
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+      border: none;
+    }
+
+    .logo-text {
+      margin-left: 1.5rem;
+      font-size: 24px;
+      font-weight: 600;
+      color: #ccc;
+    }
+  }
+}
+
+.btn-close {
+  margin-left: auto;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+}
+
+.fa-times {
+  color: #ccc;
+  font-size: 24px;
+}
+
+.sidenav-collapsed {
+  width: 14.5625rem;
+}
+
+.sidenav-nav {
+  list-style: none;
+  padding: 0.938rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100% - 3.65rem);
+  cursor: pointer;
+
+  .sidenav-nav-item {
+    width: 100%;
+    margin-bottom: 0.625rem;
+
+    .sidenav-nav-link {
+      display: flex;
+      align-items: center;
+      height: 3rem;
+      color: #ccc;
+      text-decoration: none;
+      border-radius: 0.4rem;
+      transition: all 0.3s ease;
+
+      .sidenav-img-icon {
+        height: 40px;
+        width: 40px;
+        padding: 0.4rem;
+      }
+
+      .sidenav-link-icon {
+        font-size: 22px;
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 0.5rem;
+        text-align: center;
+        .mat-icon {
+          height: 30px;
+          width: 30px;
+        }
+      }
+
+      .sidenav-link-text {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  .sidenav-nav-item:hover {
+    .sidenav-nav-link {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.logout-btn {
+  // width: 100%;
+  margin-bottom: 0.625rem;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  align-items: center;
+
+  .logout-sidenav {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    color: #ccc;
+    text-decoration: none;
+    border-radius: 0.4rem;
+    transition: all 0.3s ease;
+
+    .logout-icon {
+      font-size: 22px;
+      width: 2rem;
+      min-width: 2rem;
+      margin: 0 0.5rem;
+      text-align: center;
+      .mat-icon {
+        height: 30px;
+        width: 30px;
+      }
+    }
+    .logout-text {
+      margin-left: 1.5rem;
+    }
+  }
+}

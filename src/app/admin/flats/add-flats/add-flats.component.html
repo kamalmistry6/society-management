@@ -1,0 +1,42 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3 class="">
+            Add Flat
+        </h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+    <div class="dialog-body">
+        <form [formGroup]="flatForm" (ngSubmit)="onSubmit()" class="add-form">
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Flat No</mat-label>
+                <input matInput formControlName="flat_no" placeholder="Enter Flat No" />
+                <mat-error *ngIf="flatForm.get('flat_no')?.hasError('required')">Please enter Block No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Block No</mat-label>
+                <input matInput formControlName="block_no" placeholder="Enter Block No" />
+                <mat-error *ngIf="flatForm.get('block_no')?.hasError('required')">Please enter Block No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Flat Type</mat-label>
+                <input type="text" matInput [matAutocomplete]="formatAuto" formControlName="flat_type"
+                    placeholder="Select the Format" id="format" />
+                <mat-autocomplete #formatAuto="matAutocomplete">
+                    <mat-option *ngFor="let flatType of flatTypeOptions" [value]="flatType">
+                        {{ flatType }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="flatForm.get('format')?.hasError('required')">Format is required</mat-error>
+            </mat-form-field>
+
+            <div>
+                <button class="mat-raised-button" type="submit">Add Flat</button>
+            </div>
+        </form>
+    </div>
+</div>

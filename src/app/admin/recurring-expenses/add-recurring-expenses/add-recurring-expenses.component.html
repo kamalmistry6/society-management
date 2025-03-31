@@ -1,0 +1,53 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3>
+            Add Member
+        </h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+    <div class="dialog-body">
+        <form [formGroup]="monthlyExpensesForm" (ngSubmit)="onSubmit()" class="add-form">
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Recurring Type</mat-label>
+                <input type="text" matInput [matAutocomplete]="recurringTypeAuto" formControlName="recurring_type"
+                    placeholder="Select the Recurring Type" />
+                <mat-autocomplete #recurringTypeAuto="matAutocomplete">
+                    <mat-option *ngFor="let recurringType of recurringTypeOptions" [value]="recurringType">
+                        {{ recurringType }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="monthlyExpensesForm.get('recurring_type')?.hasError('required')">Status is
+                    required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Due Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="next_due_date" placeholder="YYYY-MM-DD" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="monthlyExpensesForm.get('next_due_date')?.hasError('required')">
+                    Please enter Due Date
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Status</mat-label>
+                <input type="text" matInput [matAutocomplete]="formatAuto" formControlName="status"
+                    placeholder="Select the Status" />
+                <mat-autocomplete #formatAuto="matAutocomplete">
+                    <mat-option *ngFor="let statusType of statusTypeOptions" [value]="statusType">
+                        {{ statusType }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="monthlyExpensesForm.get('status')?.hasError('required')">Status is
+                    required</mat-error>
+            </mat-form-field>
+
+            <div>
+                <button class="mat-raised-button" type="submit">Add Member</button>
+            </div>
+        </form>
+    </div>
+</div>

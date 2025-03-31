@@ -1,0 +1,33 @@
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  color: red;
+  transition: color 0.3s ease-in-out;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  color: #0066ff;
+  transition: color 0.3s ease-in-out;
+}
+
+.delete-button i {
+  pointer-events: none;
+}
+
+.status-active {
+  color: #1fa855;
+  font-weight: 500;
+}
+
+.status-inactive {
+  color: #e52020;
+  font-weight: 500;
+}

@@ -1,0 +1,27 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+    <div class="logo-container">
+        <button class="logo" (click)="toggleCollapse()">T</button>
+        <div class="logo-text" *ngIf="collapsed">TheOne</div>
+        <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fal fa-times close-icon"></i>
+        </button>
+
+    </div>
+
+    <ul class="sidenav-nav">
+        <!-- Use filteredNavData to apply role-based filtering -->
+        <li class="sidenav-nav-item" *ngFor="let data of filteredNavData">
+            <a class="sidenav-nav-link" [routerLink]="[data.RouterLink]" routerLinkActive="active">
+                <mat-icon class="sidenav-link-icon" svgIcon="{{ data.iconName }}"></mat-icon>
+                <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>
+            </a>
+        </li>
+        <li class="logout-btn " (click)="logout()">
+            <a class="logout-sidenav">
+                <mat-icon class="logout-icon" svgIcon="logout"></mat-icon>
+                <span class="logout-text" *ngIf="collapsed">Logout</span>
+            </a>
+        </li>
+    </ul>
+
+</div>

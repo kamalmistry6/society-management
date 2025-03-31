@@ -1,0 +1,85 @@
+// Center the form container
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #a3a3a3;
+}
+
+// Style the login form
+.login-form {
+  background: #fff;
+  padding: 1rem;
+  width: 350px;
+  min-width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+.form-field {
+  width: 100%;
+}
+// Logo styling
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 60px;
+  margin-right: 10px;
+}
+
+.logo-txt {
+  font-size: 35px;
+  font-weight: bold;
+  color: #2a5298;
+}
+
+// Form fields
+
+// Button styling
+.login-btn {
+  width: 50%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #0066ff;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+// Register link
+.register-link {
+  margin-top: 15px;
+  font-size: 14px;
+
+  a {
+    color: #0066ff;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}

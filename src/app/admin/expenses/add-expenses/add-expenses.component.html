@@ -1,0 +1,87 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3>
+            Add Member
+        </h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+    <div class="dialog-body">
+        <form [formGroup]="expensesForm" (ngSubmit)="onSubmit()" class="add-form">
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Category</mat-label>
+                <input matInput formControlName="category" placeholder="Enter Category" />
+                <mat-error *ngIf="expensesForm.get('category')?.hasError('required')">Please enter Block No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" placeholder="Enter Description" />
+                <mat-error *ngIf="expensesForm.get('description')?.hasError('required')">Please enter Phone
+                    No</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Amount</mat-label>
+                <input matInput formControlName="amount" placeholder="Enter Amount" />
+                <mat-error *ngIf="expensesForm.get('amount')?.hasError('required')">Please enter Aadhaar No</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Payment Method</mat-label>
+                <input type="text" matInput [matAutocomplete]="paymentMethodAuto" formControlName="payment_method"
+                    placeholder="Select the Payment Method" />
+                <mat-autocomplete #paymentMethodAuto="matAutocomplete">
+                    <mat-option *ngFor="let payment of paymentMethodOptions" [value]="payment">
+                        {{ payment }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="expensesForm.get('payment_method')?.hasError('required')">Format is
+                    required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Expense Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="expense_date" placeholder="YYYY-MM-DD" />
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="expensesForm.get('expense_date')?.hasError('required')">
+                    Please enter Expense Date
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Vendor Name</mat-label>
+                <input matInput formControlName="vendor_name" placeholder="Enter Vendor Name" />
+                <mat-error *ngIf="expensesForm.get('vendor_name')?.hasError('required')">Please enter Vendor Name
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Invoice Number</mat-label>
+                <input matInput formControlName="invoice_number" placeholder="Enter Invoice Number" />
+                <mat-error *ngIf="expensesForm.get('invoice_number')?.hasError('required')">Please enter
+                    Invoice Number
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="no-bottom mat-form-field">
+                <mat-label>Status</mat-label>
+                <input type="text" matInput [matAutocomplete]="formatAuto" formControlName="status"
+                    placeholder="Select the Status" />
+                <mat-autocomplete #formatAuto="matAutocomplete">
+                    <mat-option *ngFor="let statusType of statusTypeOptions" [value]="statusType">
+                        {{ statusType }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="expensesForm.get('status')?.hasError('required')">Format is required</mat-error>
+            </mat-form-field>
+            <div>
+                <button class="mat-raised-button" type="submit">Add Member</button>
+            </div>
+        </form>
+    </div>
+</div>

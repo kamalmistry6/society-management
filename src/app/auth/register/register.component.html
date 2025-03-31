@@ -1,0 +1,31 @@
+<div class="form-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group fade-in">
+            <div class="logo-container">
+                <h1 class="logo-txt">Register</h1>
+            </div>
+        </div>
+        <div class="form-group fade-in">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" name="name" />
+            </mat-form-field>
+            <!-- <input formControlName="name" type="text" placeholder="Name" /> -->
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" name="email" />
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" placeholder="Password" name="password" />
+            </mat-form-field>
+        </div>
+        <div class="btn-container fade-in">
+            <button type="submit" [disabled]="registerForm.invalid" class="mat-raised-button login-btn">
+                Sign up
+            </button>
+        </div>
+    </form>
+</div>

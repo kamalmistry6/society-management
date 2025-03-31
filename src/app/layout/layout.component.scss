@@ -1,0 +1,45 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidenav */
+app-sidenav {
+  transition: width 0.3s ease;
+  z-index: 10; // Ensure sidenav is on top
+}
+
+/* Content (Dashboard area) */
+.content {
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  background: #f5f5f5;
+  overflow: auto;
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+  height: 100%;
+}
+
+/* Sidenav collapsed */
+.sidenav-collapsed {
+  margin-left: 5rem;
+  width: calc(100% - 5rem);
+}
+
+/* Sidenav expanded */
+.sidenav-expanded {
+  margin-left: 14.5625rem;
+  width: calc(100% - 14.5625rem);
+}
+
+/* Responsive behavior */
+@media screen and (max-width: 768px) {
+  app-sidenav {
+    width: 5rem; // Always collapsed on small screens
+  }
+
+  .content {
+    margin-left: 5rem;
+    width: calc(100% - 5rem);
+  }
+}

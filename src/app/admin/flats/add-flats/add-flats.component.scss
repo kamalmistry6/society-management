@@ -1,0 +1,33 @@
+.add-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.no-bottom {
+  margin-bottom: -1.2rem;
+}
+
+.save-button {
+  background: transparent;
+  color: #a08dff;
+  font-weight: 500;
+  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  border: 1.5px solid #c4d9ff;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+
+  .mat-icon {
+    height: 30px;
+    width: 30px;
+  }
+}
