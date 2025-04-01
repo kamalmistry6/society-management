@@ -20,7 +20,7 @@ exports.getStats = async (req, res) => {
           SUM(CASE WHEN a.id IS NOT NULL THEN 1 ELSE 0 END) AS active_members,
           (COUNT(*) - SUM(CASE WHEN a.id IS NOT NULL THEN 1 ELSE 0 END)) AS inactive_members
       FROM members 
-      LEFT JOIN allotment a ON members.id = a.member_id;
+      LEFT JOIN allotment a ON members.id = a.user_id;
     `);
 
     // Fetch Allotments Stats

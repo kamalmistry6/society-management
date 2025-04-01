@@ -1,7 +1,7 @@
 export interface allotment {
   allotment_id?: number;
-  member_id: number;
-  member_name?: string;
+  user_id: number;
+  user_name?: string;
   flat_id: number;
   flat_no?: string;
   block_no?: string;

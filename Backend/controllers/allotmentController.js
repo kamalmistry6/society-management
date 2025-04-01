@@ -2,17 +2,17 @@ const allotmentModel = require("../models/allotmentModel");
 
 // ADD Allotment with optional end_date
 exports.addAllotment = async (req, res) => {
-  const { member_id, flat_id, start_date, end_date } = req.body;
+  const { user_id, flat_id, start_date, end_date } = req.body;
 
-  if (!member_id || !flat_id || !start_date) {
+  if (!user_id || !flat_id || !start_date) {
     return res
       .status(400)
-      .json({ message: "Member ID, Flat ID, and Start Date are required" });
+      .json({ message: "user ID, Flat ID, and Start Date are required" });
   }
 
   try {
     await allotmentModel.addAllotment(
-      member_id,
+      user_id,
       flat_id,
       start_date,
       end_date || null
@@ -64,16 +64,16 @@ exports.getAllotmentById = async (req, res) => {
 // UPDATE Allotment with optional end_date
 exports.updateAllotment = async (req, res) => {
   const { id } = req.params;
-  const { member_id, flat_id, start_date, end_date } = req.body;
+  const { user_id, flat_id, start_date, end_date } = req.body;
 
-  if (!id || !member_id || !flat_id || !start_date) {
+  if (!id || !user_id || !flat_id || !start_date) {
     return res.status(400).json({ message: "Invalid or missing data" });
   }
 
   try {
     const result = await allotmentModel.updateAllotment(
       id,
-      member_id,
+      user_id,
       flat_id,
       start_date,
       end_date || null

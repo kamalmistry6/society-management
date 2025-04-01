@@ -12,14 +12,14 @@
             <!-- Member Name -->
             <mat-form-field appearance="outline" class="mat-form-field">
                 <mat-label>Member Name</mat-label>
-                <input type="text" matInput [matAutocomplete]="memberAuto" formControlName="member_id"
+                <input type="text" matInput [matAutocomplete]="memberAuto" formControlName="user_id"
                     placeholder="Select the Member Name" />
                 <mat-autocomplete #memberAuto="matAutocomplete">
                     <mat-option *ngFor="let member of memberData" [value]="member.id">
                         {{ member.name }}
                     </mat-option>
                 </mat-autocomplete>
-                <mat-error *ngIf="allotmentForm.get('member_id')?.hasError('required')">
+                <mat-error *ngIf="allotmentForm.get('user_id')?.hasError('required')">
                     Member Name is required
                 </mat-error>
             </mat-form-field>

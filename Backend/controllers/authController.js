@@ -3,8 +3,23 @@ const jwt = require("jsonwebtoken");
 const authModel = require("../models/authModel");
 const { JWT_SECRET, JWT_EXPIRES } = require("../config/env");
 
-const register = async (req, res) => {
-  const { name, email, password } = req.body;
+exports.register = async (req, res) => {
+  const {
+    name,
+    email,
+    password,
+    phone,
+    address,
+    city,
+    state,
+    pincode,
+    occupation,
+    aadhaar,
+    emergency_contact_phone,
+    vehicle_number,
+    move_in_date,
+    status,
+  } = req.body;
 
   try {
     // Check if email already exists
@@ -22,8 +37,27 @@ const register = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Register the new user
-    await authModel.register(name, email, hashedPassword, userRole);
+    // Prepare the user data object
+    const userData = {
+      name,
+      phone,
+      email,
+      password: hashedPassword,
+      role: userRole,
+      address,
+      city,
+      state,
+      pincode,
+      occupation,
+      aadhaar,
+      emergency_contact_phone,
+      vehicle_number,
+      move_in_date,
+      status,
+    };
+
+    // Register the new user in the database
+    await authModel.registerUser(userData);
 
     res.status(201).json({
       message: "User registered successfully",
@@ -35,7 +69,7 @@ const register = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -68,8 +102,16 @@ const login = async (req, res) => {
   }
 };
 
-// ✅ Export the functions properly
-module.exports = {
-  register,
-  login,
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await authModel.getAllUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users" });
+  }
 };
+
+// module.exports = {
+//   register,
+//   login,
+// };

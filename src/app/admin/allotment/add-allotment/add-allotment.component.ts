@@ -44,7 +44,7 @@ export class AddAllotmentComponent {
   initializeForm(): void {
     this.allotmentForm = this.fb.group({
       id: [null],
-      member_id: ['', Validators.required],
+      user_id: ['', Validators.required],
       flat_id: ['', Validators.required],
       start_date: ['', Validators.required],
       end_date: [''],

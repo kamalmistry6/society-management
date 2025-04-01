@@ -3,7 +3,7 @@ const db = require("../config/db");
 // ADD Allotment with optional end_date (NULL for permanent ownership)
 // ADD Allotment and Update Flat Status
 exports.addAllotment = async (
-  member_id,
+  user_id,
   flat_id,
   start_date,
   end_date = null
@@ -15,10 +15,10 @@ exports.addAllotment = async (
 
     // Insert allotment
     const sql = `
-      INSERT INTO allotment (member_id, flat_id, start_date, end_date)
+      INSERT INTO allotment (user_id, flat_id, start_date, end_date)
       VALUES (?, ?, ?, ?)
     `;
-    await connection.execute(sql, [member_id, flat_id, start_date, end_date]);
+    await connection.execute(sql, [user_id, flat_id, start_date, end_date]);
 
     // Update flat status to "Alloted"
     const updateFlatSql = `
@@ -29,11 +29,11 @@ exports.addAllotment = async (
     await connection.execute(updateFlatSql, [flat_id]);
 
     const updateMemberSql = `
-      UPDATE members
+      UPDATE user
       SET status = 'Active'
       WHERE id = ?
     `;
-    await connection.execute(updateMemberSql, [member_id]);
+    await connection.execute(updateMemberSql, [user_id]);
 
     await connection.commit();
     connection.release();
@@ -50,8 +50,8 @@ exports.getAllotments = async () => {
   const sql = `
     SELECT 
       a.id AS allotment_id,
-      m.id AS member_id, 
-      m.name AS member_name,
+      m.id AS user_id, 
+      m.name AS user_name,
       f.id AS flat_id,
       f.flat_no,
       f.block_no,
@@ -59,7 +59,7 @@ exports.getAllotments = async () => {
       a.start_date,
       IFNULL(a.end_date, 'Permanent') AS end_date
     FROM allotment a
-    JOIN members m ON a.member_id = m.id
+    JOIN user m ON a.user_id = m.id
     JOIN flat f ON a.flat_id = f.id
   `;
   const [rows] = await db.execute(sql);
@@ -71,8 +71,8 @@ exports.getAllotmentById = async (id) => {
   const sql = `
     SELECT 
       a.id AS allotment_id,
-      m.id AS member_id, 
-      m.name AS member_name,
+      m.id AS user_id, 
+      m.name AS user_name,
       f.id AS flat_id,
       f.flat_no,
       f.block_no,
@@ -80,7 +80,7 @@ exports.getAllotmentById = async (id) => {
       a.start_date,
       IFNULL(a.end_date, 'Permanent') AS end_date
     FROM allotment a
-    JOIN members m ON a.member_id = m.id
+    JOIN user m ON a.user_id = m.id
     JOIN flat f ON a.flat_id = f.id
     WHERE a.id = ?
   `;
@@ -91,20 +91,20 @@ exports.getAllotmentById = async (id) => {
 // UPDATE Allotment with optional end_date
 exports.updateAllotment = async (
   id,
-  member_id,
+  user_id,
   flat_id,
   start_date,
   end_date = null
 ) => {
   const sql = `
     UPDATE allotment 
-    SET member_id = ?, flat_id = ?, start_date = ?, end_date = ?
+    SET user_id = ?, flat_id = ?, start_date = ?, end_date = ?
     WHERE id = ?
   `;
 
   const params = end_date
-    ? [member_id, flat_id, start_date, end_date, id]
-    : [member_id, flat_id, start_date, null, id];
+    ? [user_id, flat_id, start_date, end_date, id]
+    : [user_id, flat_id, start_date, null, id];
 
   const [result] = await db.execute(sql, params);
   return result;
@@ -116,9 +116,9 @@ exports.deleteAllotment = async (id) => {
   try {
     await connection.beginTransaction();
 
-    // Get the flat_id and member_id associated with the allotment
+    // Get the flat_id and user_id associated with the allotment
     const [allotment] = await connection.execute(
-      `SELECT flat_id, member_id FROM allotment WHERE id = ?`,
+      `SELECT flat_id, user_id FROM allotment WHERE id = ?`,
       [id]
     );
 
@@ -128,7 +128,7 @@ exports.deleteAllotment = async (id) => {
       return { message: "Allotment not found", affectedRows: 0 };
     }
 
-    const { flat_id, member_id } = allotment[0];
+    const { flat_id, user_id } = allotment[0];
 
     // Delete the allotment
     const [result] = await connection.execute(
@@ -148,17 +148,17 @@ exports.deleteAllotment = async (id) => {
       [flat_id]
     );
 
-    // Check if the member still has any active allotments
-    const [memberAllotments] = await connection.execute(
-      `SELECT id FROM allotment WHERE member_id = ?`,
-      [member_id]
+    // Check if the user still has any active allotments
+    const [userAllotments] = await connection.execute(
+      `SELECT id FROM allotment WHERE user_id = ?`,
+      [user_id]
     );
 
-    // If no more active allotments, set member status to "Inactive"
-    if (memberAllotments.length === 0) {
+    // If no more active allotments, set user status to "Inactive"
+    if (userAllotments.length === 0) {
       await connection.execute(
-        `UPDATE members SET status = 'Inactive' WHERE id = ?`,
-        [member_id]
+        `UPDATE user SET status = 'Inactive' WHERE id = ?`,
+        [user_id]
       );
     }
 

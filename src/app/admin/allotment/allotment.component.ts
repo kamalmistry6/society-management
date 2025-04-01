@@ -14,7 +14,7 @@ import { AddAllotmentComponent } from './add-allotment/add-allotment.component';
 export class AllotmentComponent {
   displayedColumns: string[] = [
     'sr_no',
-    'member_name',
+    'user_name',
     'flat_no',
     'block_no',
     'flat_type',
