@@ -8,9 +8,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { SharedModule } from './shared/shared.module';
 import { PermissionService } from './services/permission.service';
+import { TopbarComponent } from './layout/topbar/topbar.component';
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent, LayoutComponent],
+  declarations: [AppComponent, SidenavComponent, LayoutComponent, TopbarComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, SharedModule],
   providers: [IconService, PermissionService],
   bootstrap: [AppComponent],

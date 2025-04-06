@@ -1,0 +1,126 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <h3>User Profile</h3>
+        <button class="close-btn" (click)="closeDialog()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <div class="profile-wrapper">
+            <div class="profile-bio">
+                <div class="profile-photo">
+                    <img [src]="photoUrl || 'assets/default-user.png'" alt="Profile Photo">
+                    <!-- <button class="remove-photo">×</button> -->
+                </div>
+                <form class="password-section" [formGroup]="passwordForm">
+                    <!-- <div class="password-section"> -->
+                    <div class="input-field">
+                        <label>Old Password</label>
+                        <div class="password-input">
+                            <input [type]="showOldPassword ? 'text' : 'password'" formControlName="oldPassword"
+                                required />
+                            <button type="button" class="eye-btn" (click)="toggleOldPasswordVisibility()">
+                                <i [class]="showOldPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label>New Password</label>
+                        <div class="password-input">
+                            <input [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword"
+                                required />
+                            <button type="button" class="eye-btn" (click)="toggleNewPasswordVisibility()">
+                                <i [class]="showNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                            </button>
+                        </div>
+                        <button class="change-password-btn" (click)="changePassword()">Change Password</button>
+                    </div>
+                    <!-- </div> -->
+                </form>
+            </div>
+            <div class="profile-info">
+                <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-info-form">
+                    <div class="input-field">
+                        <label for="profile_photo">Profile Photo</label>
+                        <input type="file" id="profile_photo" (change)="onFileSelected($event)" accept="image/*" />
+                    </div>
+                    <div class="input-field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" formControlName="name" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" formControlName="email" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" formControlName="phone" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="city">City</label>
+                        <input type="text" id="city" formControlName="city" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="state">State</label>
+                        <input type="text" id="state" formControlName="state" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" formControlName="pincode" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" formControlName="address" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" id="occupation" formControlName="occupation" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="aadhaar">Aadhaar</label>
+                        <input type="text" id="aadhaar" formControlName="aadhaar" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="emergency_contact_phone">Emergency Contact</label>
+                        <input type="tel" id="emergency_contact_phone" formControlName="emergency_contact_phone"
+                            required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="vehicle_number">Vehicle Number</label>
+                        <input type="text" id="vehicle_number" formControlName="vehicle_number" />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="move_in_date">Move-in Date</label>
+                        <input type="date" id="move_in_date" formControlName="move_in_date" required />
+                    </div>
+
+                    <div class="input-field">
+                        <label for="status">Status</label>
+                        <input type="text" id="status" formControlName="status" required />
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="mat-raised-button" type="button" (click)="toggleEdit()">
+                            {{ isEditMode ? 'Save' : 'Edit' }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

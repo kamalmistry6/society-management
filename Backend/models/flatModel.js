@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 // ADD Flat
 // GET All Flats with Status
-exports.getFlats = async () => {
+exports.addFlat = async () => {
   const sql = "SELECT id, flat_no, block_no, flat_type, status FROM flat";
   const [rows] = await db.execute(sql);
   return rows;

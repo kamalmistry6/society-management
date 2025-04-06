@@ -1,12 +1,21 @@
+// src/app/services/auth.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { profile } from '../auth/models/profile';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5000/auth';
+  private apiProfileUrl = 'http://localhost:5000/profile';
+  private authStatusSubject = new BehaviorSubject<boolean>(this.hasToken());
+
+  // Shared profile subject
+  private profileSubject = new BehaviorSubject<profile | null>(null);
+  profile$ = this.profileSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +29,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
         this.storeToken(res.token);
-        this.storeRole(res.role); // Store role
+        this.storeRole(res.role);
+        this.authStatusSubject.next(true);
       })
     );
   }
@@ -29,28 +39,73 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    this.authStatusSubject.next(false);
+    this.profileSubject.next(null);
   }
 
-  // TOKEN & ROLE MANAGEMENT
-  storeToken(token: string): void {
+  // FETCH USER PROFILE
+  getProfile(): Observable<profile> {
+    return this.http
+      .get<profile>(this.apiProfileUrl, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        tap((profile) => this.profileSubject.next(profile)) // Set profile on fetch
+      );
+  }
+
+  // REFRESH PROFILE (e.g., after photo update)
+  refreshProfile(): void {
+    this.getProfile().subscribe(); // auto-updates via tap
+  }
+
+  // UPDATE PROFILE
+  updateProfile(profileData: any): Observable<any> {
+    return this.http
+      .put(`${this.apiProfileUrl}`, profileData, {
+        headers: this.getAuthHeaders(),
+      })
+      .pipe(
+        tap(() => this.refreshProfile()) // update shared profile
+      );
+  }
+
+  // CHANGE PASSWORD
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.put(
+      `${this.apiProfileUrl}/change-password`,
+      { oldPassword, newPassword },
+      {
+        headers: this.getAuthHeaders(), // ✅ add this line
+      }
+    );
+  }
+
+  // AUTH HEADER
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders().set('Authorization', `Bearer ${this.getToken()}`);
+  }
+
+  // TOKEN & ROLE STORAGE
+  private storeToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  private storeRole(role: string): void {
+    localStorage.setItem('role', role);
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  storeRole(role: string): void {
-    localStorage.setItem('role', role); // Store the role in localStorage
-  }
-
   getRole(): string | null {
-    return localStorage.getItem('role'); // Fetch the role from localStorage
+    return localStorage.getItem('role');
   }
 
-  // AUTH STATUS
+  // AUTH CHECKS
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return this.hasToken();
   }
 
   isAdmin(): boolean {
@@ -59,5 +114,9 @@ export class AuthService {
 
   isUser(): boolean {
     return this.getRole() === 'user';
+  }
+
+  private hasToken(): boolean {
+    return !!this.getToken();
   }
 }

@@ -1,0 +1,22 @@
+.topbar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 1rem;
+  height: 50px;
+  width: 100%;
+  background: #e8f9ff;
+  border-bottom: 1px solid #c4d9ff;
+  color: #a998ff;
+}
+.profile-circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  .profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}

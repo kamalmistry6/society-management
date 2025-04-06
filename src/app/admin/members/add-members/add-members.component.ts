@@ -29,6 +29,10 @@ export class AddMembersComponent {
       name: ['', Validators.required],
       phone: ['', Validators.required], // Validates 10-digit phone numbers
       email: ['', Validators.required], // Ensures valid email format
+      address: ['', Validators.required], // Ensures valid email format
+      city: ['', Validators.required], // Ensures valid email format
+      state: ['', Validators.required], // Ensures valid email format
+      pincode: ['', Validators.required], // Ensures valid email format
       occupation: ['', Validators.required],
       aadhaar: ['', Validators.required], // Validates 12-digit Aadhaar numbers
       emergency_contact_phone: ['', Validators.required],
@@ -51,9 +55,6 @@ export class AddMembersComponent {
   }
 
   onSubmit(): void {
-    console.log('Form Data:', this.memberForm.value);
-    console.log('Form Valid:', this.memberForm.valid);
-    console.log('Form Errors:', this.memberForm.errors);
     if (this.memberForm.invalid) {
       alert('Please fill all required fields correctly.');
 
@@ -70,8 +71,6 @@ export class AddMembersComponent {
 
     if (memberData.id) {
       this.updateMember(memberData);
-    } else {
-      this.addMember(memberData);
     }
   }
 
@@ -83,18 +82,6 @@ export class AddMembersComponent {
       },
       (error) => {
         console.error('Error updating member:', error);
-      }
-    );
-  }
-
-  addMember(memberData: any): void {
-    this.memberService.addMember(memberData).subscribe(
-      (response) => {
-        console.log('Member added successfully:', response);
-        this.dialogRef.close(true);
-      },
-      (error) => {
-        console.error('Error adding member:', error);
       }
     );
   }

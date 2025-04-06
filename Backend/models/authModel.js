@@ -1,12 +1,5 @@
 const db = require("../config/db");
 
-exports.getAllUsers = async () => {
-  const sql = "SELECT * FROM user";
-  const [rows] = await db.execute(sql);
-  return rows;
-};
-
-// REGISTER USER
 exports.registerUser = async (userData) => {
   const sql = `
     INSERT INTO user 
@@ -19,7 +12,7 @@ exports.registerUser = async (userData) => {
     userData.phone,
     userData.email,
     userData.password,
-    userData.role, // Role should be passed correctly here
+    userData.role,
     userData.address,
     userData.city,
     userData.state,
@@ -33,18 +26,13 @@ exports.registerUser = async (userData) => {
   ]);
 };
 
-exports.deleteMember = async (id) => {
-  const sql = "DELETE FROM user WHERE id = ?";
-  return db.execute(sql, [id]);
-};
-
 // FIND USER BY EMAIL
 exports.findByEmail = async (email) => {
-  const sql = "SELECT * FROM user WHERE email = ?"; // Corrected table name to 'user'
+  const sql = "SELECT * FROM user WHERE email = ?";
   const [rows] = await db.execute(sql, [email]);
 
-  console.log("Database Role:", rows[0]?.role); // Log the role for debugging
-  return rows[0]; // Ensure you return the entire row with the role
+  console.log("Database Role:", rows[0]?.role);
+  return rows[0];
 };
 
 // CHECK IF ADMIN EXISTS

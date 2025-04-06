@@ -50,6 +50,7 @@ export class FlatsComponent {
       }
     });
   }
+
   editFlat(flat?: flats): void {
     const dialogRef = this.dialog.open(AddFlatsComponent, {
       maxHeight: '80vh',

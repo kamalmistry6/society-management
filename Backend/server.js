@@ -5,10 +5,12 @@ const db = require("./config/db"); // Database connection
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 // Routes
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/members", require("./routes/memberRoutes"));
+app.use("/profile", require("./routes/profileRoutes"));
 app.use("/flats", require("./routes/flatRoutes"));
 app.use("/allotments", require("./routes/allotmentRoutes"));
 app.use("/expenses", require("./routes/expenseRoutes"));

@@ -1,0 +1,142 @@
+.dialog-header {
+  padding: 0.5rem 1rem;
+}
+.profile-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  overflow-x: auto;
+  height: 100%;
+  padding-bottom: 1rem;
+
+  .profile-bio {
+    flex: 1;
+    // min-width: 280px;
+    width: 300px;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+
+    .profile-photo {
+      position: relative;
+      width: 100%;
+      text-align: center;
+
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+    .password-section {
+      margin-top: 20px;
+
+      label {
+        margin-top: 10px;
+      }
+
+      input {
+        margin-top: 4px;
+        margin-bottom: 10px;
+      }
+      .change-password-btn {
+        width: 100%;
+        background-color: transparent;
+        border: 1px solid #d1d5db;
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    }
+  }
+  .profile-info {
+    flex: 3;
+    min-width: 300px;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+}
+
+.profile-info-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #22262f;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  color: #6c757d;
+  border-radius: 6px;
+  background: #fff;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.input-field input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 2px rgba(0, 123, 255, 0.3);
+}
+
+@media (max-width: 600px) {
+  .profile-info-form {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .profile-wrapper {
+    flex-direction: column;
+  }
+  .profile-bio {
+    min-width: 100%;
+  }
+  .profile-bio,
+  .profile-info {
+    flex: 0 0 auto;
+    max-width: 100%;
+    min-width: 300px;
+  }
+}
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .eye-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  mat-icon {
+    font-size: 20px;
+  }
+}

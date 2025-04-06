@@ -101,17 +101,3 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Error during login" });
   }
 };
-
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await authModel.getAllUsers();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching users" });
-  }
-};
-
-// module.exports = {
-//   register,
-//   login,
-// };

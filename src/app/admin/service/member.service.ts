@@ -7,7 +7,7 @@ import { members } from '../models/members';
   providedIn: 'root',
 })
 export class MemberService {
-  private baseUrl = 'http://localhost:5000/auth/members';
+  private baseUrl = 'http://localhost:5000/members';
   constructor(private http: HttpClient) {}
 
   getMembers(filter: { [key: string]: string } = {}): Observable<members[]> {
